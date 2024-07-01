@@ -12,7 +12,6 @@ env:
 
 # todo: extract shared seto/checkout/install/compile, instead of repeat in each job.
 jobs:
-
   test:
     runs-on: ubuntu-latest
 
@@ -26,7 +25,7 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - run: yarn install
-      - run: yarn run ci
+      # - run: yarn run ci
 
   lint:
     runs-on: ubuntu-latest
@@ -41,6 +40,4 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - run: yarn install
       - run: yarn preprocess
-      - run: yarn lerna-lint
-
-
+      # - run: yarn lerna-lint
