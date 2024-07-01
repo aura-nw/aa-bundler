@@ -1,6 +1,7 @@
 import '@nomiclabs/hardhat-ethers'
 import '@nomicfoundation/hardhat-toolbox'
 import 'hardhat-deploy'
+require('dotenv').config()
 
 import fs from 'fs'
 
@@ -15,38 +16,38 @@ if (mnemonicFileName != null && fs.existsSync(mnemonicFileName)) {
 
 const infuraUrl = (name: string): string => `https://${name}.infura.io/v3/${process.env.INFURA_ID}`
 
-function getNetwork (url: string): NetworkUserConfig {
+function getNetwork(url: string): NetworkUserConfig {
   return {
     url,
     accounts: {
-      mnemonic
-    }
+      mnemonic,
+    },
   }
 }
 
-function getInfuraNetwork (name: string): NetworkUserConfig {
+function getInfuraNetwork(name: string): NetworkUserConfig {
   return getNetwork(infuraUrl(name))
 }
 
 const config: HardhatUserConfig = {
   typechain: {
     outDir: 'src/types',
-    target: 'ethers-v5'
+    target: 'ethers-v5',
   },
   networks: {
     localhost: {
       url: 'http://localhost:8545/',
-      saveDeployments: false
+      saveDeployments: false,
     },
-    goerli: getInfuraNetwork('goerli')
+    goerli: getInfuraNetwork('goerli'),
   },
   solidity: {
     version: '0.8.23',
     settings: {
       evmVersion: 'paris',
-      optimizer: { enabled: true }
-    }
-  }
+      optimizer: { enabled: true },
+    },
+  },
 }
 
 export default config
